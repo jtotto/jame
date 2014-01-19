@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">JAME</string>
+    <string name="action_settings">Settings</string>
+    <string name="midi_range">MIDI Controller Range:</string>
+    <string name="midi_min">Lower Bound</string>
+    <string name="midi_max">Upper Bound</string>
+    <string name="toggle_inversion">CC Inversion</string>
+    <string name="initiate_calibration">Calibrate</string>
+    <string name="send_midi">Send MIDI</string>
+    <string name="sending_midi">Sending MIDI Data!</string>
+    <string name="enter_ip">Enter IP</string>
+    <string name="ip_title">MIDI Server IP</string>
+    <string name="ip_summary">Specify the IP of the tethered MIDI server.</string>
+    <string name="localhost">127.0.0.1</string>
+    <string name="response_title">Tilt Response Modifier</string>
+
+</resources>

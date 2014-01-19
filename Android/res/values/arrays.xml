@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string-array name="tilt_response_names">
+        <item name="linear">Linear</item>
+        <item name="quadratic">Quadratic</item>
+        <item name="root">Square Root</item>
+    </string-array>
+    
+    <string-array name="tilt_response_values">
+        <item name="linear">0</item>
+        <item name="quadratic">1</item>
+        <item name="root">2</item>
+    </string-array>
+
+</resources>

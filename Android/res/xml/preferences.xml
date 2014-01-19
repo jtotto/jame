@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+            android:key="pref_server_ip"
+            android:title="@string/ip_title"
+            android:summary="@string/ip_summary"
+            android:dialogTitle="@string/ip_title"
+            android:dialogMessage="@string/enter_ip"
+            android:defaultValue="@string/localhost" />
+    
+    <ListPreference
+        android:key="pref_tilt_response"
+        android:title="@string/response_title"
+        android:dialogTitle="@string/response_title"
+        android:entries="@array/tilt_response_names"
+        android:entryValues="@array/tilt_response_values"
+        android:defaultValue="0" />
+    
+    
+    
+</PreferenceScreen>
