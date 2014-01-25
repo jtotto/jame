@@ -128,7 +128,7 @@ public class MidiControlFragment extends Fragment
                 			,modifier
                 			,mTiltActivity
                 	);
-                	// transmitter.setUncaughtExceptionHandler(transmissionHandler);
+                	transmitter.setUncaughtExceptionHandler(transmissionHandler);
                 	transmitter.start(); // Aaaaaaand go!
                 } 
                 else 
