@@ -28,19 +28,24 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0009;
-        public static final int calibrate_button=0x7f0a0008;
-        public static final int midi_max_title=0x7f0a0002;
-        public static final int midi_min_title=0x7f0a0001;
-        public static final int midi_range_title=0x7f0a0000;
-        public static final int select_midi_max=0x7f0a0004;
-        public static final int select_midi_min=0x7f0a0003;
-        public static final int send_midi_button=0x7f0a0007;
-        public static final int toggle_inversion_button=0x7f0a0006;
-        public static final int toggle_inversion_title=0x7f0a0005;
+        public static final int action_settings=0x7f0a000c;
+        public static final int calibrate_button=0x7f0a000b;
+        public static final int calibrate_prompt=0x7f0a0001;
+        public static final int calibrate_start=0x7f0a0002;
+        public static final int control_container=0x7f0a0000;
+        public static final int midi_max_title=0x7f0a0005;
+        public static final int midi_min_title=0x7f0a0004;
+        public static final int midi_range_title=0x7f0a0003;
+        public static final int select_midi_max=0x7f0a0007;
+        public static final int select_midi_min=0x7f0a0006;
+        public static final int send_midi_button=0x7f0a000a;
+        public static final int toggle_inversion_button=0x7f0a0009;
+        public static final int toggle_inversion_title=0x7f0a0008;
     }
     public static final class layout {
         public static final int activity_jamemain=0x7f030000;
+        public static final int fragment_calibrationmanager=0x7f030001;
+        public static final int fragment_midicontrol=0x7f030002;
     }
     public static final class menu {
         public static final int jamemain=0x7f090000;
@@ -48,7 +53,11 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f070001;
         public static final int app_name=0x7f070000;
+        public static final int calibration_max_prompt=0x7f070010;
+        public static final int calibration_min_prompt=0x7f07000f;
+        public static final int default_port=0x7f070014;
         public static final int enter_ip=0x7f070009;
+        public static final int enter_port=0x7f070013;
         public static final int initiate_calibration=0x7f070006;
         public static final int ip_summary=0x7f07000b;
         public static final int ip_title=0x7f07000a;
@@ -56,10 +65,13 @@ public final class R {
         public static final int midi_max=0x7f070004;
         public static final int midi_min=0x7f070003;
         public static final int midi_range=0x7f070002;
+        public static final int port_summary=0x7f070012;
+        public static final int port_title=0x7f070011;
         public static final int response_title=0x7f07000d;
         public static final int send_midi=0x7f070007;
         public static final int sending_midi=0x7f070008;
         public static final int toggle_inversion=0x7f070005;
+        public static final int user_ready=0x7f07000e;
     }
     public static final class style {
         /** 

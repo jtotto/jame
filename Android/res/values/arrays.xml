@@ -9,9 +9,9 @@
     </string-array>
     
     <string-array name="tilt_response_values">
-        <item name="linear">0</item>
-        <item name="quadratic">1</item>
-        <item name="root">2</item>
+        <item name="linear">linear</item>
+        <item name="quadratic">quadratic</item>
+        <item name="root">root</item>
     </string-array>
 
 </resources>

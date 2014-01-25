@@ -8,6 +8,15 @@
             android:dialogMessage="@string/enter_ip"
             android:defaultValue="@string/localhost" />
     
+    <EditTextPreference
+        	android:key="pref_server_port"
+        	android:title="@string/port_title"
+        	android:summary="@string/port_summary"
+        	android:dialogTitle="@string/port_title"
+        	android:dialogMessage="@string/enter_port"
+        	android:defaultValue="@string/default_port"
+        	android:inputType="number" />
+    
     <ListPreference
         android:key="pref_tilt_response"
         android:title="@string/response_title"

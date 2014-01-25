@@ -1,23 +1,54 @@
 package com.github.jame;
 
+import com.github.jame.TiltSensor;
+import com.github.jame.Fragments.CalibrationFragment;
+import com.github.jame.Fragments.MidiControlFragment;
 import com.github.jame.Fragments.PrefsFragment;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class JAMEMainActivity extends Activity 
-{
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
+public class JAMEMainActivity extends Activity implements 
+					MidiControlFragment.OnCalibrationInitiatedListener, 
+					CalibrationFragment.OnCalibrationCompletedListener, 
+					SensorEventListener, 
+					TiltSensor.TiltListenerActivity 
+{	
+	private SensorManager mSensorManager;
+	private Sensor gravitySensor;
+	private TiltSensor.TiltDataListener mTiltListener;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jamemain);
+
+        if (findViewById(R.id.control_container) != null) 
+        {
+            if (savedInstanceState != null) 
+            {
+                return;
+            }
+            
+            getFragmentManager().beginTransaction().add(R.id.control_container, new MidiControlFragment(), "control").commit();
+        }
+		
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		gravitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
+		mTiltListener = null;
 	}
 
 	@Override
@@ -34,12 +65,85 @@ public class JAMEMainActivity extends Activity
     	switch(item.getItemId())
     	{
     		case R.id.action_settings:
-    			getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefsFragment()).commit();
+    			FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+    			transaction.replace(R.id.control_container, new PrefsFragment());
+    			transaction.addToBackStack(null);
+    			transaction.commit();
     			return true;
     		default:
     			return super.onOptionsItemSelected(item);
-    			
     	}
     }
-
+	
+	@Override
+	public void getCalibrationBound(int flag, String prompt)
+	{
+		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		
+		CalibrationFragment calibrationFragment = new CalibrationFragment();
+		Bundle args = new Bundle();
+		args.putString("prompt", prompt);
+		args.putInt("flag", flag);
+		calibrationFragment.setArguments(args);
+		
+		transaction.add(0, calibrationFragment, Integer.toString(flag));
+		transaction.commit();
+	}
+	
+	@Override
+	public void receiveCalibrationBound(int flag, float data)
+	{
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		
+		CalibrationFragment calibrationFragment = (CalibrationFragment) fragmentManager.findFragmentByTag(Integer.toString(flag));
+		transaction.remove(calibrationFragment);
+		transaction.commit();
+		
+		((MidiControlFragment) fragmentManager.findFragmentByTag("control")).recordCalibration(flag, data);
+	}
+	
+	@Override
+	public void registerTiltListener(TiltSensor.TiltDataListener listener)
+	{
+		mTiltListener = listener;
+		mSensorManager.registerListener(this, gravitySensor, SensorManager.SENSOR_DELAY_GAME);
+	}
+	
+	@Override
+	public void unregisterTiltListener()
+	{
+		mSensorManager.unregisterListener(this);
+		mTiltListener = null;
+	}
+	
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		mSensorManager.unregisterListener(this);
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		if(mTiltListener != null)
+		{	
+			mSensorManager.registerListener(this, gravitySensor, SensorManager.SENSOR_DELAY_GAME);
+		}
+	}
+	
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy)
+	{
+		System.err.println("Accuracy changed..."); // Do I care?
+	}
+	
+	@Override
+	public void onSensorChanged(SensorEvent event)
+	{
+		mTiltListener.onTiltChanged((float)Math.atan(event.values[1]/event.values[2]));
+	}
 }
