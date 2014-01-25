@@ -1,2 +1,4 @@
 *.class
+*.apk
 bin/
+simple.sh

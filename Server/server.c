@@ -8,13 +8,36 @@
 #include <string.h>
 #include <sys/types.h>
 #include <time.h> 
+#include <alsa/asoundlib.h> // stdio, stdlib and unistd were also used in the example I'm working from, but were already imported.
 
 int main(int argc, char *argv[])
 {
+    // ALSA stuff first.
+    snd_seq_t *seq_handle;
+    snd_seq_event_t ev; // No reason not to allocate this on the stack.
+    int oportid;         /* output port */
+
+    if (snd_seq_open(&seq_handle, "hw", SND_SEQ_OPEN_OUTPUT, 0) < 0) {
+        printf("Error opening ALSA sequencer.\n");
+        exit(1);
+    }
+
+    snd_seq_set_client_name(seq_handle, "JAME"); 
+
+    if(oportid = snd_seq_create_simple_port
+         (seq_handle, "Output",
+          SND_SEQ_PORT_CAP_READ | SND_SEQ_PORT_CAP_SUBS_READ,
+          SND_SEQ_PORT_TYPE_APPLICATION) < 0)
+    {
+        printf("Error opening output port.\n");
+    }
+
+    // TCP stuff now.
     printf("Started...");
     int listenfd = 0, connfd = 0;
     struct sockaddr_in serv_addr; 
 
+    
     char readBuff[1025];
     char midi;
     time_t ticks; 
@@ -35,13 +58,18 @@ int main(int argc, char *argv[])
     {
         printf("Waiting...");
         connfd = accept(listenfd, (struct sockaddr*)NULL, NULL); 
-        printf("OH MY GOD FUCK YES");
 
         ticks = time(NULL);
         while(1)
         {
             read(connfd, &midi, sizeof(midi)); 
-            printf("%d\n", midi);
+            // printf("%d\n", midi);
+            snd_seq_ev_clear(&ev);
+            snd_seq_ev_set_source( &ev, oportid );
+            snd_seq_ev_set_subs( &ev );
+            snd_seq_ev_set_direct( &ev );
+            snd_seq_ev_set_controller(&ev, 1, 1, midi);
+            snd_seq_event_output_direct( seq_handle, &ev );
         }
         close(connfd);
         sleep(1);

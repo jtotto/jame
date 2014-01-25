@@ -81,6 +81,7 @@ public class MidiDataTransmitter extends Thread implements TiltSensor.TiltDataLi
 			try
 			{
 				outputStream.write(midi);
+				previousValue = midi;
 			}
 			catch(IOException e)
 			{
@@ -91,8 +92,11 @@ public class MidiDataTransmitter extends Thread implements TiltSensor.TiltDataLi
 	
 	public void close() throws IOException
 	{
-		mTiltActivity.unregisterTiltListener();
-		outputStream.close();
-		socket.close();
+		if(mTiltActivity != null)
+			mTiltActivity.unregisterTiltListener();
+		if(outputStream != null)
+			outputStream.close();
+		if(socket != null)
+			socket.close();
 	}
 }
