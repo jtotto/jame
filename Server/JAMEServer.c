@@ -188,6 +188,7 @@ void *server_cleanup_handler(void *resources)
     {
         close(resource_handles[CONNECTION]);
     }
+    printf("Handled server thread cleanup request.\n");
 }
 
 void *serve_midi(void *args)
@@ -229,7 +230,6 @@ void *serve_midi(void *args)
                 resource_handles[CONNECTION] = -1; // Mark the descriptor as invalid.
                 break;
             }
-            printf("%d\n", midi);
             *(event_value) = midi;
             snd_seq_event_output_direct( seq_handle, &ev );
         }

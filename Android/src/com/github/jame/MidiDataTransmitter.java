@@ -95,8 +95,10 @@ public class MidiDataTransmitter extends Thread implements TiltSensor.TiltDataLi
 		if(mTiltActivity != null)
 			mTiltActivity.unregisterTiltListener();
 		if(outputStream != null)
+		{	
 			outputStream.write(-1); // Send the sentinel.
 			outputStream.close();
+		}
 		if(socket != null)
 			socket.close();
 	}
