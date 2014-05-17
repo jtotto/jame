@@ -3,9 +3,9 @@ This is JAME (pronounced 'Jamie'), the JAME Android MIDI Expression project.
 What does it do?  Find out: http://www.youtube.com/watch?v=K9MGiAig_nQ
 
 
-        The purpose of these tools is to allow an Android smartphone to act as a MIDI expression device (much like a typical expression pedal), with the 'tilt' of the phone in relation to the horizontal planeserving as the expression parameter.
-        The Android app supports API levels 12 and up, and requires that the phone have a gravity sensor(a virtual sensor that provides the gravity vector experienced by the phone using other physicalsensors).  It requires that the user provide it with the maximum and minimum tilt for use during asession, as well as the maximum and minimum MIDI controller values.  It then maps its current tilt toa MIDI cc value within the given range.
-        Communication with the server is done over TCP.  I initially intended to change it to UDP, butI haven't had any latency problems with TCP and think that the guaranteed packet ordering that it provides is valuable.  
+        The purpose of these tools is to allow an Android smartphone to act as a MIDI expression device (much like a typical expression pedal), with the 'tilt' of the phone in relation to the horizontal plane serving as the expression parameter.
+        The Android app supports API levels 12 and up, and requires that the phone have a gravity sensor(a virtual sensor that provides the gravity vector experienced by the phone using other physical sensors).  It requires that the user provide it with the maximum and minimum tilt for use during asession, as well as the maximum and minimum MIDI controller values.  It then maps its current tilt to a MIDI cc value within the given range.
+        Communication with the server is done over TCP.  I initially intended to change it to UDP, but I haven't had any latency problems with TCP and think that the guaranteed packet ordering that it provides is valuable.  
         The app opens a direct socket with the server.  For best results (I haven't tested it any other way, but wouldn't expect much), tether your phone to your server!  
 
 --- The app requires manual IP/port entry because there is NO PUBLIC API for tethering. ---
@@ -14,8 +14,8 @@ What does it do?  Find out: http://www.youtube.com/watch?v=K9MGiAig_nQ
 
 To use:
 
-Run the server on the machine where you need the MIDI information.  Make sure it's listening on the port you'veconfigured the app to use.  Connect its ALSA MIDI port to the appropriate sinks.  Then, once the server islistening, tell the app to start sending data.  It should be that simple.
+Run the server on the machine where you need the MIDI information.  Make sure it's listening on the port you've configured the app to use.  Connect its ALSA MIDI port to the appropriate sinks.  Then, once the server is listening, tell the app to start sending data.  It should be that simple.
 
-Full disclosure, there were a lot of firsts for me with this project.  First ever Android app, first socketprogramming, first ALSA MIDI, first C concurrency.  I learned a lot and had a lot of fun, but it's probablynot perfect.  If you have feedback or would like to help improve this project, let me know!  Similarly, if youuse it for anything cool, let me know!  
+Full disclosure, there were a lot of firsts for me with this project.  First ever Android app, first socket programming, first ALSA MIDI, first C concurrency.  I learned a lot and had a lot of fun, but it's probably not perfect.  If you have feedback or would like to help improve this project, let me know!  Similarly, if you use it for anything cool, let me know!  
 
 
